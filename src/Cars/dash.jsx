@@ -52,7 +52,7 @@ export default function Read() {
                   <TableRow>
                     <TableCell>ID</TableCell>
                     <TableCell align="right">Name</TableCell>
-                    <TableCell align="right">City</TableCell>
+                    <TableCell align="right">Price</TableCell>
                     <TableCell align="right">Desc</TableCell>
                     <TableCell align="right">Images</TableCell>
                     <TableCell align="right">Actions</TableCell>

@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
 import React, { useState, useEffect } from 'react';
 // import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
@@ -16,33 +18,32 @@ export default function Create() {
     const [price, setPrice] = useState('');
     const [desc, setDesc] = useState('');
     const [images, setImages] = useState('');
-    const [category, setCategory] = useState('');
+    
 
-
-
-    useEffect(() => {
-      axios.get(`Http://localhost:4000/api/category`)
-          .then((response) => {
-            console.log(response.data.data)
-            setCategory(response.data.data);
-          })
-  }, []);
-
-    const postData = () => {
-        axios.post(`Http://localhost:4000/api/cars/new`, {
-            title,
-            desc,
-            images,
-            price,
-            category
-        }).then(() => {
-            console.log("done");
-        })
+  const handleSubmit = async() => {
+    // store the states in the form data
+    const Car = new FormData();
+    Car.append("title", title)
+    Car.append("price", price)
+    Car.append("desc", desc)
+    Car.append("images", images)
+    try {
+      // make axios post request 
+      const response = await axios({
+        method: "post",
+        url: "Http://localhost:4000/api/cars/new",
+        data: Car,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      console.log(response.images);
+    } catch(error) {
+      console.log(error)
     }
+  }
 
 
     return (
-        <Container>
+        <Container multi>
             <Box
                 sx={{
                     marginTop: 8,
@@ -88,21 +89,6 @@ export default function Create() {
             </Grid>
             {/* <Grid container spacing={2}> */}
             <Grid item xs={12}>
-            <InputLabel id="demo-simple-select-label" >Category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value= { category }
-                label="Category"
-                onChange={(e) => setCategory(e.target.value)}
-                sx={{ m: 1, width: 300 }}
-              >
-                {category.map((car) => (
-                <MenuItem >{ car.title }</MenuItem>
-                ))}
-              </Select>
-            </Grid>
-            <Grid item xs={12}>
             <label htmlFor="icon-button-file">
               <Input 
                 accept="image/*"
@@ -118,11 +104,12 @@ export default function Create() {
                 <IconButton color="primary" aria-label="upload picture" component="span">
                   <PhotoCamera />
                 </IconButton>
+                <Grid>{images.title}</Grid>
             </label>
             </Grid>
             {/* </Grid> */}
           </Grid>
-          <Button onClick={postData} type='submit'>Add</Button>
+          <Button onClick={handleSubmit} type='submit'>Add</Button>
           </Box>
         </Container>
       );

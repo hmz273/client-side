@@ -11,6 +11,7 @@ import Cards from './Cards/cards';
 import Booking from './Cards/booking';
 import Login from './Auth/login';
 import Register from './Auth/register';
+import NavBar from './Header/NavBar';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -25,6 +26,8 @@ ReactDOM.render(
         <Route path="booking" element={<Booking />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="NavBar" element={<NavBar />} />
+
     </Routes>
   </BrowserRouter>,
   document.getElementById('root')

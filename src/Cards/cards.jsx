@@ -16,12 +16,11 @@ export default function Cards() {
 
 
   return (
-    <Container >
-    <Grid container rowSpacing={1} columns={16}>
-        <Grid item xs={3}>
-        
+      <Container>
+    <Grid container spacing={2}>
+        {cars.map((car) => (
+        <Grid item xs={6} md={3}>
             <Card>
-            {cars.map((car) => (
                 <><CardActionArea>
                     <CardMedia
                         component="img"
@@ -37,18 +36,19 @@ export default function Cards() {
                             species, ranging across all continents except Antarctica
                         </Typography>
                     </CardContent>
-                </CardActionArea><CardActions>
-                        <Button size="small" color="primary">
+                </CardActionArea>
+                   <CardActions spacing={2}>
+                        <Button color="primary">
                             {car.price}dh/j
                         </Button>
-                        <Link to='/booking'>
-                            <Button>Book Now</Button>
-                        </Link>
+                        <Button variant="contained" size="small">
+                            <Link to="/booking" color="primary">Book Now</Link>
+                        </Button>
                     </CardActions></>
-            ))}
+
         </Card>
-        
         </Grid>
+            ))}
     </Grid>
     </Container>
   );
